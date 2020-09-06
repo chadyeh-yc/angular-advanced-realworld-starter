@@ -6,23 +6,31 @@
           <fieldset class="form-group">
             <input class="form-control form-control-lg" type="text" placeholder="Post Title" formControlName="title" />
           </fieldset>
+          <ul *ngIf="title.dirty && title.invalid">
+            <li *ngIf="title.errors.required">
+              請輸入標題
+            </li>
+          </ul>
           <fieldset class="form-group">
             <textarea class="form-control" rows="3" placeholder="Description" formControlName="description"></textarea>
           </fieldset>
           <fieldset class="form-group">
             <textarea class="form-control" rows="8" placeholder="Post body" formControlName="body"></textarea>
           </fieldset>
+          <ul *ngIf="body.dirty && body.invalid">
+            <li *ngIf="body.errors.required">請輸入內文</li>
+            <li *ngIf="body.errors.minlength">內文至少 {{body.errors.minlength.requiredLength}} 個字</li>
+          </ul>
           <fieldset class="form-group">
             <input class="form-control" type="text" placeholder="Enter tags" #tag
-              (keyup.enter)="addTag(tag.value); tag.value = ''"
-              (keydown.enter)="$event.preventDefault()"/>
+              (keyup.enter)="addTag(tag.value); tag.value = ''" (keydown.enter)="$event.preventDefault()" />
             <div class="tag-list" formArrayName="tags">
               <span class="label label-pill label-default" *ngFor="let tag of tags.controls let index = index">
                 <i class="ion-close-round" (click)="removeTag(index)"></i>{{tag.value}}</span>
 
             </div>
           </fieldset>
-          <button type="submit" class="btn btn-lg btn-primary pull-xs-right">
+          <button type="submit" class="btn btn-lg btn-primary pull-xs-right" [disabled]="post.invalid">
             Create Post
           </button>
         </form>
