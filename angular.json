@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-realworld-advanced-starter"
+    }
+  },
+  "defaultProject": "angular-realworld-advanced-starter",
+  "cli": {
+    "analytics": false
+  }
 }
